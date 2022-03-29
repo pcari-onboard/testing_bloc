@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:testing_bloc/views/manage_user_page/views/manage_user_page.dart';
 import 'package:testing_bloc/views/user_listing_page/bloc/user_listing_bloc.dart';
 
 class UserListingPage extends StatefulWidget {
@@ -49,6 +50,16 @@ class _UserListingPageState extends State<UserListingPage> {
               children: state.userList.map(
                 (e) {
                   return ListTile(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) {
+                          return ManageUserPage(
+                            id: e.id,
+                          );
+                        }),
+                      );
+                    },
                     title: Text(
                       e.firstName + e.lastName,
                     ),

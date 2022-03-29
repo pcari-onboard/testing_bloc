@@ -7,6 +7,9 @@ import 'package:testing_bloc/models/user_model.dart';
 abstract class UserRepoInterface {
   factory UserRepoInterface() => UserRepo();
 
+  Future<User> getSingleUser({
+    required int id,
+  });
   Future<List<User>> getListUser();
   Future<User> updateUser({
     required int id,
@@ -36,5 +39,15 @@ class UserRepo implements UserRepoInterface {
   }) async {
     // TODO: implement updateUser
     throw UnimplementedError();
+  }
+
+  @override
+  Future<User> getSingleUser({required int id}) async {
+    Response response = await apiHelperInterface.getMethod(
+      path: '/users/$id',
+    );
+    Map<String, dynamic> data = jsonDecode(response.body);
+    User user = User.fromJson(data['data']);
+    return user;
   }
 }
